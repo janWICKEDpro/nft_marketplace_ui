@@ -7,6 +7,7 @@ class AppColors {
   static const lightlight = Colors.white;
   static const purple = Color(0xff7551FF);
   static const green = Color(0xff01B574);
+  static const cyan = Color(0xff39B8FF);
 
   static const primary = purple;
   static const success = green;

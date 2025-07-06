@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/check_table_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/total_spent_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/weekly_revenue_card.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 
@@ -579,8 +582,6 @@ class MainDashboardGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Define the layout for different screen sizes.
-    // The crossAxisCount determines the total number of columns in the grid.
     int crossAxisCount = context.responsive(mobile: 1, tablet: 4, desktop: 4);
 
     return StaggeredGrid.count(
@@ -593,7 +594,6 @@ class MainDashboardGrid extends StatelessWidget {
       // `crossAxisCellCount` = how many columns the tile spans.
       // `mainAxisCellCount` = how many rows the tile spans (its height).
       children: [
-        // --- ROW 1 ---
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
             mobile: 1,
@@ -605,7 +605,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Total Spend'),
+          child: TotalSpentCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -618,7 +618,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Weekly Revenue'),
+          child: WeeklyRevenueCard(),
         ),
         // --- ROW 2 ---
         StaggeredGridTile.count(
@@ -632,7 +632,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 3,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Check Table'),
+          child: CheckTableCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
