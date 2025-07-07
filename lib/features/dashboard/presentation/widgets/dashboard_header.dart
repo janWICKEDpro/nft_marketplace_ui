@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -31,14 +32,14 @@ class DashboardHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Pages / Dashboard',
+                'Pages / ${getPagePath(GoRouterState.of(context).uri.path)}',
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(fontSize: 14),
               ),
               const SizedBox(height: 8),
               Text(
-                'Main Dashboard',
+                getPageName(GoRouterState.of(context).uri.path),
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   fontSize: context.responsive(mobile: 24, desktop: 34),
                   fontWeight: FontWeight.bold,
@@ -149,5 +150,29 @@ class DashboardHeader extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getPageName(String path) {
+    if (path.contains("/dashboard")) {
+      return "Main Dashboard";
+    } else if (path.contains("/nft-marketplace")) {
+      return "NFT Marketplace";
+    } else if (path.contains("/tables")) {
+      return "Tables";
+    } else if (path.contains("/kanban")) {
+      return "Kanban";
+    } else if (path.contains("/profile")) {
+      return "Profile";
+    } else {
+      return "";
+    }
+  }
+
+  String getPagePath(String path) {
+    if (path.contains("/dashboard")) {
+      return "Dashboard";
+    } else {
+      return getPageName(path);
+    }
   }
 }
