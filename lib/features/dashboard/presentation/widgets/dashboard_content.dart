@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/business_design_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/calendar_card.dart';
 import 'package:nft_marketplace/features/dashboard/presentation/widgets/check_table_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/complex_table_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/control_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/daily_traffic_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/pie_chart_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/starbuck_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/stat_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/task_card.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/team_members_card.dart';
 import 'package:nft_marketplace/features/dashboard/presentation/widgets/total_spent_card.dart';
 import 'package:nft_marketplace/features/dashboard/presentation/widgets/weekly_revenue_card.dart';
-import '../../../../core/theme/app_colors.dart';
+
 import '../../../../core/utils/responsive.dart';
 
 class DashboardContent extends StatelessWidget {
@@ -35,345 +45,6 @@ class DashboardContent extends StatelessWidget {
           // const SizedBox(height: 24),
           // _buildTablesRow(context),
         ],
-      ),
-    );
-  }
-
-  Widget _buildStatsRow(BuildContext context) {
-    return Responsive(
-      mobile: Column(
-        children: [
-          _StatsCard(
-            title: 'Earnings',
-            value: '\$350.4',
-            subtitle: '+55% since last month',
-            icon: Icons.trending_up,
-            color: AppColors.success,
-          ),
-          const SizedBox(height: 16),
-          _StatsCard(
-            title: 'Spend this Month',
-            value: '\$682.5',
-            subtitle: '+15% since last month',
-            icon: Icons.credit_card,
-            color: AppColors.primary,
-          ),
-          const SizedBox(height: 16),
-          _StatsCard(
-            title: 'Sales',
-            value: '\$574.34',
-            subtitle: '+124% since last month',
-            icon: Icons.shopping_cart,
-            color: AppColors.success,
-          ),
-          const SizedBox(height: 16),
-          _StatsCard(
-            title: 'Your Balance',
-            value: '\$1,000',
-            subtitle: '',
-            icon: Icons.account_balance_wallet,
-            color: AppColors.primary,
-          ),
-        ],
-      ),
-      desktop: Row(
-        children: [
-          Expanded(
-            child: _StatsCard(
-              title: 'Earnings',
-              value: '\$350.4',
-              subtitle: '+55% since last month',
-              icon: Icons.trending_up,
-              color: AppColors.success,
-            ),
-          ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: _StatsCard(
-              title: 'Spend this Month',
-              value: '\$682.5',
-              subtitle: '+15% since last month',
-              icon: Icons.credit_card,
-              color: AppColors.primary,
-            ),
-          ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: _StatsCard(
-              title: 'Sales',
-              value: '\$574.34',
-              subtitle: '+124% since last month',
-              icon: Icons.shopping_cart,
-              color: AppColors.success,
-            ),
-          ),
-          const SizedBox(width: 24),
-          Expanded(
-            child: _StatsCard(
-              title: 'Your Balance',
-              value: '\$1,000',
-              subtitle: '',
-              icon: Icons.account_balance_wallet,
-              color: AppColors.primary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildChartsRow(BuildContext context) {
-    return Responsive(
-      mobile: Column(
-        children: [
-          _ChartCard(
-            title: 'Total Spent',
-            subtitle: 'This month',
-            value: '\$37.5K',
-            change: '+2.45%',
-            height: 300,
-          ),
-          const SizedBox(height: 16),
-          _ChartCard(
-            title: 'Weekly Revenue',
-            subtitle: '',
-            value: '',
-            change: '',
-            height: 300,
-          ),
-        ],
-      ),
-      desktop: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: _ChartCard(
-              title: 'Total Spent',
-              subtitle: 'This month',
-              value: '\$37.5K',
-              change: '+2.45%',
-              height: 400,
-            ),
-          ),
-          const SizedBox(width: 24),
-          Expanded(
-            flex: 1,
-            child: _ChartCard(
-              title: 'Weekly Revenue',
-              subtitle: '',
-              value: '',
-              change: '',
-              height: 400,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTablesRow(BuildContext context) {
-    return Responsive(
-      mobile: Column(
-        children: [
-          _TableCard(title: 'Check Table', height: 400),
-          const SizedBox(height: 16),
-          _TableCard(title: 'Complex Table', height: 400),
-          const SizedBox(height: 16),
-          _TableCard(title: 'Daily Traffic', height: 300),
-        ],
-      ),
-      desktop: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                _TableCard(title: 'Check Table', height: 300),
-                const SizedBox(height: 24),
-                _TableCard(title: 'Complex Table', height: 300),
-              ],
-            ),
-          ),
-          const SizedBox(width: 24),
-          Expanded(
-            flex: 1,
-            child: _TableCard(title: 'Daily Traffic', height: 300),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StatsCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final String subtitle;
-  final IconData icon;
-  final Color color;
-
-  const _StatsCard({
-    required this.title,
-    required this.value,
-    required this.subtitle,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(icon, color: color, size: 20),
-                const SizedBox(width: 8),
-                Text(title, style: Theme.of(context).textTheme.bodyMedium),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Text(
-              value,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineLarge?.copyWith(fontSize: 28),
-            ),
-            if (subtitle.isNotEmpty) ...[
-              const SizedBox(height: 8),
-              Text(
-                subtitle,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppColors.success,
-                  fontSize: 12,
-                ),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ChartCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String value;
-  final String change;
-  final double height;
-
-  const _ChartCard({
-    required this.title,
-    required this.subtitle,
-    required this.value,
-    required this.change,
-    required this.height,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        height: height,
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(fontSize: 18),
-            ),
-            if (subtitle.isNotEmpty) ...[
-              const SizedBox(height: 4),
-              Text(subtitle, style: Theme.of(context).textTheme.bodyMedium),
-            ],
-            if (value.isNotEmpty) ...[
-              const SizedBox(height: 16),
-              Row(
-                children: [
-                  Text(
-                    value,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.headlineLarge?.copyWith(fontSize: 24),
-                  ),
-                  if (change.isNotEmpty) ...[
-                    const SizedBox(width: 8),
-                    Text(
-                      change,
-                      style: const TextStyle(
-                        color: AppColors.success,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ],
-            const SizedBox(height: 20),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Center(child: Text('Chart Placeholder')),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _TableCard extends StatelessWidget {
-  final String title;
-  final double height;
-
-  const _TableCard({required this.title, required this.height});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        height: height,
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(fontSize: 18),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color:
-                        Theme.of(context).brightness == Brightness.dark
-                            ? AppColors.darkBorder
-                            : AppColors.border,
-                  ),
-                ),
-                child: const Center(child: Text('Table Placeholder')),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -453,8 +124,7 @@ class DashboardStatsGrid extends StatelessWidget {
     ];
 
     return GridView.builder(
-      physics:
-          const NeverScrollableScrollPhysics(), // The parent ListView handles scrolling
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: context.responsive(mobile: 1, tablet: 2, desktop: 6),
@@ -474,109 +144,6 @@ class DashboardStatsGrid extends StatelessWidget {
   }
 }
 
-class StatCard extends StatelessWidget {
-  final StatCardModel data;
-  const StatCard({super.key, required this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(20),
-        border: isDark ? null : Border.all(color: AppColors.border, width: 1.5),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // --- Icon Section ---
-          // It can display a standard icon or a custom widget (like the flag)
-          if (data.icon != null)
-            Flexible(
-              flex: 0,
-              child: Image.asset(
-                data.icon!,
-                height: 40,
-                width: 40,
-                fit: BoxFit.contain,
-              ),
-            ),
-
-          const SizedBox(width: 12),
-
-          // --- Text Content Section ---
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Text(
-                    data.title,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Flexible(
-                  child: Text(
-                    data.value,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                if (data.subtitle != null) ...[
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          data.subtitle!,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodyMedium?.copyWith(
-                            fontSize: 12,
-                            color: data.subtitleColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      if (data.subtitleText != null)
-                        Flexible(
-                          child: Text(
-                            data.subtitleText!,
-                            style: Theme.of(
-                              context,
-                            ).textTheme.bodyMedium?.copyWith(fontSize: 12),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ],
-            ),
-          ),
-          if (data.customIcon != null)
-            Flexible(flex: 0, child: data.customIcon!),
-        ],
-      ),
-    );
-  }
-}
-
 class MainDashboardGrid extends StatelessWidget {
   const MainDashboardGrid({super.key});
 
@@ -586,13 +153,8 @@ class MainDashboardGrid extends StatelessWidget {
 
     return StaggeredGrid.count(
       crossAxisCount: crossAxisCount,
-
       mainAxisSpacing: 20,
       crossAxisSpacing: 20,
-
-      // The children are defined using StaggeredGridTile.
-      // `crossAxisCellCount` = how many columns the tile spans.
-      // `mainAxisCellCount` = how many rows the tile spans (its height).
       children: [
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -645,7 +207,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Daily Traffic'),
+          child: DailyTrafficCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -658,7 +220,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Your Pie Chart'),
+          child: PieChartCard(),
         ),
         // --- ROW 3 ---
         StaggeredGridTile.count(
@@ -672,7 +234,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 3,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Complex Table'),
+          child: ComplexTableCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -685,7 +247,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 3,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Tasks'),
+          child: TasksCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -698,7 +260,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 3,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Calendar'),
+          child: CalendarCard(),
         ),
         // --- ROW 4 ---
         StaggeredGridTile.count(
@@ -712,7 +274,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Business Design'),
+          child: BusinessDesignCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -725,7 +287,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Team Members'),
+          child: TeamMembersCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -738,7 +300,7 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Control Card Security'),
+          child: ControlCard(),
         ),
         StaggeredGridTile.count(
           crossAxisCellCount: context.responsive(
@@ -751,31 +313,28 @@ class MainDashboardGrid extends StatelessWidget {
             tablet: 2,
             desktop: 1,
           ),
-          child: const PlaceholderCard(title: 'Starbucks'),
+          child: StarbuckCard(),
         ),
       ],
     );
   }
 }
+// class PlaceholderCard extends StatelessWidget {
+//   final String title;
+//   const PlaceholderCard({super.key, required this.title});
 
-// ------------------- NEW: PLACEHOLDER CARD -------------------
-// A simple, styled placeholder to visualize the grid layout.
-class PlaceholderCard extends StatelessWidget {
-  final String title;
-  const PlaceholderCard({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(20),
-        border: isDark ? null : Border.all(color: AppColors.border, width: 1.5),
-      ),
-      child: Center(
-        child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final isDark = Theme.of(context).brightness == Brightness.dark;
+//     return Container(
+//       decoration: BoxDecoration(
+//         color: Theme.of(context).cardColor,
+//         borderRadius: BorderRadius.circular(20),
+//         border: isDark ? null : Border.all(color: AppColors.border, width: 1.5),
+//       ),
+//       child: Center(
+//         child: Text(title, style: Theme.of(context).textTheme.headlineMedium),
+//       ),
+//     );
+//   }
+// }

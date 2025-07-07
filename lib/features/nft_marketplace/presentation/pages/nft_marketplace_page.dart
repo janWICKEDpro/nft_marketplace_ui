@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:nft_marketplace/features/nft_marketplace/presentation/widgets/history_card.dart';
+import 'package:nft_marketplace/features/nft_marketplace/presentation/widgets/nft_card.dart';
+import 'package:nft_marketplace/features/nft_marketplace/presentation/widgets/top_creators_card.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 
@@ -24,9 +27,8 @@ class _DesktopLayout extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(flex: 3, child: const _MainContent()),
-        const SizedBox(width: 24),
-        SizedBox(width: 320, child: const _Sidebar()),
+        Expanded(flex: 2, child: const _MainContent()),
+        Expanded(flex: 1, child: const _Sidebar()),
       ],
     );
   }
@@ -71,54 +73,55 @@ class _HeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(context.responsive(mobile: 24, desktop: 40)),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [AppColors.purple, Color(0xff868CFF)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset("assets/images/bg_main.png"),
         ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Responsive(
-        mobile: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildHeroText(context),
-            const SizedBox(height: 24),
-            _buildHeroActions(context),
-          ],
-        ),
-        desktop: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildHeroText(context),
-                  const SizedBox(height: 32),
-                  _buildHeroActions(context),
-                ],
-              ),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(context.responsive(mobile: 24, desktop: 40)),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          child: Responsive(
+            mobile: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeroText(context),
+                const SizedBox(height: 24),
+                _buildHeroActions(context),
+              ],
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                height: 200,
-                alignment: Alignment.center,
-                child: const Icon(
-                  Icons.palette_rounded,
-                  size: 80,
-                  color: Colors.white54,
+            desktop: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildHeroText(context),
+                      const SizedBox(height: 32),
+                      _buildHeroActions(context),
+                    ],
+                  ),
                 ),
-              ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    height: 200,
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.palette_rounded,
+                      size: 80,
+                      color: Colors.white54,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -266,19 +269,15 @@ class _CategoryTabs extends StatelessWidget {
                   onPressed: () {},
                   style: TextButton.styleFrom(
                     backgroundColor:
-                        isSelected
-                            ? AppColors.purple.withOpacity(0.1)
-                            : Colors.transparent,
+                        isSelected ? AppColors.darkBorder : Colors.transparent,
                     foregroundColor:
-                        isSelected
-                            ? AppColors.purple
-                            : Theme.of(context).textTheme.bodyMedium?.color,
+                        Theme.of(context).textTheme.bodyMedium?.color,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
-                      vertical: 8,
+                      vertical: 4,
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                   child: Text(
@@ -316,119 +315,10 @@ class _NFTGrid extends StatelessWidget {
             mainAxisSpacing: 16,
             childAspectRatio: childAspectRatio,
           ),
-          itemCount: 6,
-          itemBuilder: (context, index) => const _NFTCard(),
+          itemCount: 3,
+          itemBuilder: (context, index) => const NftCard(),
         );
       },
-    );
-  }
-}
-
-class _NFTCard extends StatelessWidget {
-  const _NFTCard();
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.purple.withOpacity(0.1),
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-              ),
-              child: const Icon(
-                Icons.image_rounded,
-                size: 40,
-                color: AppColors.purple,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'NFT Title',
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'By Creator',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Current Bid:',
-                              style: Theme.of(
-                                context,
-                              ).textTheme.bodyMedium?.copyWith(fontSize: 12),
-                            ),
-                            Text(
-                              '1.25 ETH',
-                              style: const TextStyle(
-                                color: AppColors.purple,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.purple,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          minimumSize: const Size(0, 32),
-                        ),
-                        child: const Text(
-                          'Place Bid',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -439,110 +329,16 @@ class _Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(context.responsive(mobile: 16, desktop: 24)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const _TopCreators(),
-          const SizedBox(height: 32),
-          const _History(),
-        ],
-      ),
-    );
-  }
-}
-
-class _TopCreators extends StatelessWidget {
-  const _TopCreators();
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(context.responsive(mobile: 16, desktop: 16)),
+      child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Top Creators',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.headlineMedium?.copyWith(fontSize: 18),
-                ),
-                TextButton(onPressed: () {}, child: const Text('See all')),
-              ],
-            ),
-            const SizedBox(height: 16),
-            ...List.generate(8, (index) => const _CreatorItem()),
+            TopCreatorsCard(),
+            const SizedBox(height: 32),
+            HistoryCard(),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _CreatorItem extends StatelessWidget {
-  const _CreatorItem();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: AppColors.purple.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Icon(Icons.person, color: AppColors.purple, size: 20),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '@creator_name',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                Text(
-                  '1234',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 60,
-            height: 4,
-            decoration: BoxDecoration(
-              color: AppColors.purple.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(2),
-            ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: 0.7,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.purple,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

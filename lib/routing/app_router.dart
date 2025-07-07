@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nft_marketplace/features/dashboard/presentation/widgets/dashboard_header.dart';
 import '../features/dashboard/presentation/pages/dashboard_page.dart';
 import '../features/nft_marketplace/presentation/pages/nft_marketplace_page.dart';
 import '../features/tables/presentation/pages/tables_page.dart';
@@ -8,14 +9,14 @@ import '../features/profile/presentation/pages/profile_page.dart';
 import '../features/dashboard/presentation/widgets/sidebar.dart';
 import '../core/utils/responsive.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> shellNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static GoRouter get router => _router;
 
   static final _router = GoRouter(
-    navigatorKey: _rootNavigatorKey,
+    navigatorKey: rootNavigatorKey,
     initialLocation: '/dashboard',
     routes: [
       StatefulShellRoute.indexedStack(
@@ -24,7 +25,7 @@ class AppRouter {
         },
         branches: [
           StatefulShellBranch(
-            navigatorKey: _shellNavigatorKey,
+            navigatorKey: shellNavigatorKey,
             routes: [
               GoRoute(
                 path: '/dashboard',
@@ -78,10 +79,7 @@ class AppRouter {
 class ScaffoldWithNavigation extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
-  const ScaffoldWithNavigation({
-    super.key,
-    required this.navigationShell,
-  });
+  const ScaffoldWithNavigation({super.key, required this.navigationShell});
 
   @override
   Widget build(BuildContext context) {
@@ -90,26 +88,23 @@ class ScaffoldWithNavigation extends StatelessWidget {
         children: [
           if (!Responsive.isMobile(context))
             SizedBox(
-              width: context.responsive(
-                mobile: 250,
-                desktop: 270,
-              ),
-              child: Sidebar(
-                navigationShell: navigationShell,
-              ),
+              width: context.responsive(mobile: 250, desktop: 270),
+              child: Sidebar(navigationShell: navigationShell),
             ),
           Expanded(
-            child: navigationShell,
+            child: Column(
+              children: [
+                const DashboardHeader(),
+                Expanded(child: navigationShell),
+              ],
+            ),
           ),
         ],
       ),
-      drawer: Responsive.isMobile(context)
-          ? Drawer(
-              child: Sidebar(
-                navigationShell: navigationShell,
-              ),
-            )
-          : null,
+      drawer:
+          Responsive.isMobile(context)
+              ? Drawer(child: Sidebar(navigationShell: navigationShell))
+              : null,
     );
   }
 }

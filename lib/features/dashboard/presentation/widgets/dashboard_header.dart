@@ -12,14 +12,12 @@ class DashboardHeader extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      // Use symmetric padding for a cleaner look that matches the design
       padding: EdgeInsets.symmetric(
         horizontal: context.responsive(mobile: 16, desktop: 30),
         vertical: 10,
       ),
       child: Row(
         children: [
-          // Mobile menu button (remains unchanged)
           if (Responsive.isMobile(context))
             IconButton(
               icon: const Icon(Icons.menu),
