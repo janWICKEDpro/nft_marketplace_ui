@@ -25,40 +25,11 @@ class Sidebar extends StatelessWidget {
         children: [
           Container(
             padding: const EdgeInsets.all(24),
-            child:
-                isDark
-                    ? Image.asset(
-                      "assets/icons/logo_dark.png",
-                      height: 26,
-                      width: 181,
-                    )
-                    : Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(
-                            Icons.dashboard_rounded,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          'HORIZON FREE',
-                          style: Theme.of(
-                            context,
-                          ).textTheme.headlineMedium?.copyWith(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+            child: Image.asset(
+              "assets/icons/logo_${isDark ? "dark" : "light"}.png",
+              height: 26,
+              width: 181,
+            ),
           ),
           Divider(
             color:
