@@ -43,7 +43,7 @@ A modern, responsive dashboard application built with Flutter for web, featuring
     <td align="center">
       <img src="screenshots/dark-theme.png" width="400" alt="Dark Theme"/>
       <br/>
-      <em>Dark Theme</em>
+      <em>Light Theme</em>
     </td>
   </tr>
 </table>
