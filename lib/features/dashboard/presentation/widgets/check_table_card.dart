@@ -70,7 +70,7 @@ class _CheckTableCardState extends State<CheckTableCard> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
@@ -89,22 +89,22 @@ class _CheckTableCardState extends State<CheckTableCard> {
                 ),
               ),
               const Spacer(),
-              Icon(Icons.more_horiz, color: Theme.of(context).iconTheme.color),
+              Image.asset(
+                "assets/icons/ic_more_horiz${isDark ? "" : "_light"}.png",
+                height: 30,
+                width: 30,
+              ),
             ],
           ),
           const SizedBox(height: 20),
-
-          // --- Table Header ---
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
-              width: 700, // Adjust width as needed for your table
+              width: 700,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildTableHeader(context),
-                  const SizedBox(height: 10),
-                  const Divider(),
                   const SizedBox(height: 10),
                   AspectRatio(
                     aspectRatio: context.responsive(

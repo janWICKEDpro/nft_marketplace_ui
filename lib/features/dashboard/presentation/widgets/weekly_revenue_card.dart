@@ -27,7 +27,11 @@ class WeeklyRevenueCard extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              Image.asset("assets/icons/ic_btn_tab.png", height: 30, width: 30),
+              Image.asset(
+                "assets/icons/ic_btn_${isDark ? "tab" : "light"}.png",
+                height: 30,
+                width: 30,
+              ),
             ],
           ),
           BarChartSample3(),

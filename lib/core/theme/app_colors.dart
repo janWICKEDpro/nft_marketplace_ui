@@ -5,6 +5,7 @@ class AppColors {
   static const darklight = Color(0xff111C44);
   static const lightbg = Color(0xffF4F7FE);
   static const lightlight = Colors.white;
+  static const lightbgl = Color(0xffFAFCFE);
   static const purple = Color(0xff7551FF);
   static const green = Color(0xff01B574);
   static const cyan = Color(0xff39B8FF);
@@ -19,4 +20,7 @@ class AppColors {
   static const darkBorder = Color(0xff1B254B);
 
   static const divider = Color(0xffF4F7FE);
+
+  static const darkPurple = Color(0xff4318FF);
+  static const gutter = Color(0xffEFF4FB);
 }

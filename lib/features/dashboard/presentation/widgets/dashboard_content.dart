@@ -105,6 +105,29 @@ class DashboardStatsGrid extends StatelessWidget {
                 'https://hatscripts.github.io/circle-flags/flags/us.svg',
                 height: 24,
                 width: 24,
+                placeholderBuilder:
+                    (context) => Container(
+                      height: 24,
+                      width: 24,
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        height: 16,
+                        width: 16,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Theme.of(context).dividerColor.withOpacity(0.2),
+                          ),
+                        ),
+                      ),
+                    ),
+                errorBuilder:
+                    (context, error, stackTrace) => Image.asset(
+                      'assets/icons/usa.png',
+                      height: 24,
+                      width: 24,
+                      fit: BoxFit.cover,
+                    ),
               ),
             ),
             const Icon(Icons.arrow_drop_down, size: 18),

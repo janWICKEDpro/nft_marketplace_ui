@@ -43,6 +43,7 @@ class _TasksCardState extends State<TasksCard> {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       children: [
         Container(
@@ -64,14 +65,10 @@ class _TasksCardState extends State<TasksCard> {
             ),
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.more_horiz,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(),
+        Image.asset(
+          "assets/icons/ic_more_horiz${isDark ? "" : "_light"}.png",
+          height: 30,
+          width: 30,
         ),
       ],
     );

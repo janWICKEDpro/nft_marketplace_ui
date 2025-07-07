@@ -7,10 +7,11 @@ class TopCreatorsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: isDark ? Theme.of(context).cardColor : AppColors.lightbgl,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -21,7 +22,7 @@ class TopCreatorsCard extends StatelessWidget {
               context.responsive(mobile: 20, desktop: 24),
             ),
             decoration: BoxDecoration(
-              color: AppColors.darkBorder,
+              color: isDark ? AppColors.darkBorder : Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
@@ -49,27 +50,26 @@ class TopCreatorsCard extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           'Top Creators',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: context.responsive(mobile: 18, desktop: 20),
-            fontWeight: FontWeight.bold,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontSize: context.responsive(mobile: 20, desktop: 24),
           ),
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: AppColors.purple,
-            borderRadius: BorderRadius.circular(12),
+            color: isDark ? AppColors.purple : AppColors.lightbg,
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
             'See all',
             style: TextStyle(
-              color: Colors.white,
+              color: isDark ? Colors.white : AppColors.purple,
               fontSize: context.responsive(mobile: 12, desktop: 13),
               fontWeight: FontWeight.w600,
             ),
@@ -91,7 +91,6 @@ class TopCreatorsCard extends StatelessWidget {
               child: Text(
                 'Name',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.7),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.5,
@@ -103,7 +102,6 @@ class TopCreatorsCard extends StatelessWidget {
               child: Text(
                 'Artworks',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.7),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.5,
@@ -115,7 +113,6 @@ class TopCreatorsCard extends StatelessWidget {
               child: Text(
                 'Rating',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.7),
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
                   letterSpacing: 0.5,
@@ -171,7 +168,6 @@ class TopCreatorsCard extends StatelessWidget {
             child: Text(
               creator.artworks.toString(),
               style: TextStyle(
-                color: Colors.white.withOpacity(0.9),
                 fontSize: context.responsive(mobile: 14, desktop: 15),
                 fontWeight: FontWeight.w500,
               ),
@@ -236,7 +232,6 @@ class TopCreatorsCard extends StatelessWidget {
           child: Text(
             creator.username,
             style: TextStyle(
-              color: Colors.white,
               fontSize: context.responsive(mobile: 14, desktop: 15),
               fontWeight: FontWeight.w600,
             ),
@@ -295,10 +290,11 @@ class TopCreatorsCard extends StatelessWidget {
   }
 
   Widget _buildRatingBar(BuildContext context, double rating) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 6,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
+        color: isDark ? Colors.white.withValues(alpha: 0.2) : AppColors.gutter,
         borderRadius: BorderRadius.circular(3),
       ),
       child: FractionallySizedBox(
@@ -306,7 +302,7 @@ class TopCreatorsCard extends StatelessWidget {
         widthFactor: rating,
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.purple,
+            color: isDark ? AppColors.purple : AppColors.darkPurple,
             borderRadius: BorderRadius.circular(3),
           ),
         ),

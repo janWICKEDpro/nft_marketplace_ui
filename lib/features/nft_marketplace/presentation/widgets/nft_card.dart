@@ -8,103 +8,143 @@ class NftCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(20),
-        border: isDark ? null : Border.all(color: AppColors.border, width: 1.5),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Stack(
-            children: [
-              Image.asset("assets/images/nft1.png"),
-              Positioned(
-                right: 10,
-                top: 15,
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_outline,
-                        color: AppColors.purple,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          padding: EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor,
+            borderRadius: BorderRadius.circular(20),
+            border:
+                isDark ? null : Border.all(color: AppColors.border, width: 1.5),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        "assets/images/nft1.png",
+                        width: double.infinity,
+                        height: context.responsive(mobile: 160, desktop: 200),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "3D cubes Art",
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "By Manny Gates",
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              buildProfileStack(context),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Current Bind: 6.58 ETH",
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              Material(
-                color: Colors.transparent,
-                child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.purple,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      'Place bid',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: context.responsive(mobile: 12, desktop: 13),
-                        fontWeight: FontWeight.w600,
+                    Positioned(
+                      right: 10,
+                      top: 15,
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Center(
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.favorite_outline,
+                              color: AppColors.purple,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "3D cubes Art",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.headlineMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Text(
+                            "By Manny Gates",
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    buildProfileStack(context),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "Current Bind: 6.58 ETH",
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white : AppColors.purple,
+                        ),
+                      ),
+                    ),
+                    Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color:
+                                isDark
+                                    ? AppColors.purple
+                                    : AppColors.darkPurple,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            'Place Bid',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: context.responsive(
+                                mobile: 12,
+                                desktop: 13,
+                              ),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

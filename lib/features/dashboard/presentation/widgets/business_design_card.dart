@@ -40,10 +40,15 @@ class BusinessDesignCard extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.asset("assets/icons/ic_flame.png", height: 48, width: 48),
+        Image.asset(
+          "assets/icons/ic_flame${isDark ? "" : "_light"}.png",
+          height: 48,
+          width: 48,
+        ),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
@@ -61,7 +66,6 @@ class BusinessDesignCard extends StatelessWidget {
                 'New lesson is available',
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
                   fontSize: 16,
                 ),
               ),
@@ -90,9 +94,16 @@ class BusinessDesignCard extends StatelessWidget {
   }
 
   Widget _buildDesktopBottomSection(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Expanded(
       child: Container(
-        color: AppColors.darkBorder,
+        decoration: BoxDecoration(
+          color: isDark ? AppColors.darkBorder : AppColors.lightbgl,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         padding: EdgeInsets.all(12),
         child: Column(
           spacing: 15,
@@ -121,6 +132,7 @@ class BusinessDesignCard extends StatelessWidget {
   Widget _buildMobileBottomSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Row(
           children: [
@@ -149,8 +161,7 @@ class BusinessDesignCard extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           '85 mins',
-          style: TextStyle(
-            color: Colors.white.withOpacity(0.9),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: context.responsive(mobile: 13, desktop: 14),
             fontWeight: FontWeight.w500,
           ),
@@ -167,8 +178,7 @@ class BusinessDesignCard extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           'Video format',
-          style: TextStyle(
-            color: Colors.white.withOpacity(0.9),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: context.responsive(mobile: 13, desktop: 14),
             fontWeight: FontWeight.w500,
           ),
@@ -242,10 +252,11 @@ class BusinessDesignCard extends StatelessWidget {
   }
 
   Widget _buildGetStartedButton(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ElevatedButton(
       onPressed: () {},
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.purple,
+        backgroundColor: isDark ? AppColors.purple : AppColors.darkPurple,
         foregroundColor: Colors.white,
         padding: EdgeInsets.symmetric(
           horizontal: context.responsive(mobile: 20, desktop: 24),
@@ -256,9 +267,9 @@ class BusinessDesignCard extends StatelessWidget {
       ),
       child: Text(
         'Get Started',
-        style: TextStyle(
-          fontSize: context.responsive(mobile: 14, desktop: 15),
-          fontWeight: FontWeight.w600,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );

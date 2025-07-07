@@ -11,7 +11,7 @@ class HistoryCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(context.responsive(mobile: 20, desktop: 24)),
       decoration: BoxDecoration(
-        color: const Color(0xff1B2559),
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -26,16 +26,14 @@ class HistoryCard extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           'History',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: context.responsive(mobile: 18, desktop: 20),
-            fontWeight: FontWeight.bold,
-            letterSpacing: -0.2,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontSize: context.responsive(mobile: 20, desktop: 24),
           ),
         ),
         Material(
@@ -45,16 +43,15 @@ class HistoryCard extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: AppColors.purple,
-                borderRadius: BorderRadius.circular(12),
+                color: isDark ? AppColors.purple : AppColors.lightbg,
+                borderRadius: BorderRadius.circular(20),
               ),
               child: Text(
                 'See all',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: isDark ? Colors.white : AppColors.purple,
                   fontSize: context.responsive(mobile: 12, desktop: 13),
                   fontWeight: FontWeight.w600,
-                  letterSpacing: 0.1,
                 ),
               ),
             ),
@@ -98,6 +95,7 @@ class HistoryCard extends StatelessWidget {
   }
 
   Widget _buildDesktopHistoryItem(BuildContext context, HistoryItem item) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -116,18 +114,15 @@ class HistoryCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                "assets/icons/ic_eth_dark.png",
+                "assets/icons/ic_eth_${isDark ? "dark" : "light"}.png",
                 height: 18,
                 width: 18,
               ),
               const SizedBox(width: 4),
               Text(
                 '${item.price} ETH',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: context.responsive(mobile: 13, desktop: 14),
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: -0.1,
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                  fontSize: context.responsive(mobile: 14, desktop: 16),
                 ),
               ),
             ],
@@ -136,7 +131,6 @@ class HistoryCard extends StatelessWidget {
           Text(
             item.timeAgo,
             style: TextStyle(
-              color: Colors.white.withOpacity(0.65),
               fontSize: context.responsive(mobile: 11, desktop: 12),
               fontWeight: FontWeight.w400,
               letterSpacing: 0.1,
@@ -164,6 +158,7 @@ class HistoryCard extends StatelessWidget {
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 10,
                   children: [
                     Expanded(child: _buildItemInfo(context, item)),
                     const SizedBox(width: 8),
@@ -178,14 +173,13 @@ class HistoryCard extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           '${item.price} ETH',
-                          style: TextStyle(
-                            color: Colors.white,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineMedium?.copyWith(
                             fontSize: context.responsive(
-                              mobile: 13,
-                              desktop: 14,
+                              mobile: 14,
+                              desktop: 16,
                             ),
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: -0.1,
                           ),
                         ),
                       ],
@@ -235,11 +229,8 @@ class HistoryCard extends StatelessWidget {
       children: [
         Text(
           item.name,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: context.responsive(mobile: 14, desktop: 15),
-            fontWeight: FontWeight.w600,
-            letterSpacing: -0.1,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            fontSize: context.responsive(mobile: 14, desktop: 16),
           ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
@@ -247,11 +238,9 @@ class HistoryCard extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           'By ${item.creator}',
-          style: TextStyle(
-            color: Colors.white.withOpacity(0.65),
-            fontSize: context.responsive(mobile: 12, desktop: 13),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w400,
-            letterSpacing: 0.1,
+            fontSize: 14,
           ),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

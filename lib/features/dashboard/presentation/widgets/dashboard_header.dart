@@ -113,7 +113,17 @@ class DashboardHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 16),
-
+                  if (GoRouterState.of(
+                    context,
+                  ).uri.path.contains("/nft-marketplace"))
+                    Container(
+                      width: 100,
+                      child: Image.asset(
+                        "assets/icons/eth_${isDark ? "dark" : "light"}.png",
+                        height: 40,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   // Action Icons
                   IconButton(
                     icon: const Icon(Icons.notifications_outlined),

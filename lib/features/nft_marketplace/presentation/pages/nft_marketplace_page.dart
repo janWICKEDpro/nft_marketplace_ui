@@ -73,55 +73,79 @@ class _HeroSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset("assets/images/bg_main.png"),
-        ),
-        Container(
-          width: double.infinity,
-          padding: EdgeInsets.all(context.responsive(mobile: 24, desktop: 40)),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          child: Responsive(
-            mobile: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildHeroText(context),
-                const SizedBox(height: 24),
-                _buildHeroActions(context),
-              ],
+    final double heroHeight = context.responsive(
+      mobile: 280,
+      tablet: 320,
+      desktop: 350,
+    );
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: SizedBox(
+        width: double.infinity,
+        height: heroHeight,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              "assets/images/bg_main.png",
+              fit: BoxFit.fill,
+              height: heroHeight,
+              width: double.infinity,
             ),
-            desktop: Row(
-              children: [
-                Expanded(
-                  flex: 2,
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(
+                context.responsive(mobile: 24, desktop: 40),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                //color: Colors.black.withOpacity(0.35),
+              ),
+              child: Responsive(
+                mobile: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildHeroText(context),
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 24),
                       _buildHeroActions(context),
                     ],
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 200,
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.palette_rounded,
-                      size: 80,
-                      color: Colors.white54,
+                desktop: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildHeroText(context),
+                          const SizedBox(height: 32),
+                          _buildHeroActions(context),
+                        ],
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        height: 200,
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.palette_rounded,
+                          size: 80,
+                          color: Colors.transparent,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 
@@ -256,7 +280,7 @@ class _CategoryTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = ['Art', 'Music', 'Collectibles', 'Sports'];
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Responsive(
       mobile: const SizedBox.shrink(),
       desktop: Row(
@@ -269,7 +293,11 @@ class _CategoryTabs extends StatelessWidget {
                   onPressed: () {},
                   style: TextButton.styleFrom(
                     backgroundColor:
-                        isSelected ? AppColors.darkBorder : Colors.transparent,
+                        isSelected
+                            ? isDark
+                                ? AppColors.darkBorder
+                                : Colors.white
+                            : Colors.transparent,
                     foregroundColor:
                         Theme.of(context).textTheme.bodyMedium?.color,
                     padding: const EdgeInsets.symmetric(
@@ -282,7 +310,10 @@ class _CategoryTabs extends StatelessWidget {
                   ),
                   child: Text(
                     category,
-                    style: const TextStyle(fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: isDark ? null : AppColors.primary,
+                    ),
                   ),
                 ),
               );

@@ -30,6 +30,7 @@ class ComplexTableCard extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -40,14 +41,10 @@ class ComplexTableCard extends StatelessWidget {
             fontSize: context.responsive(mobile: 18, desktop: 20),
           ),
         ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.more_horiz,
-            color: Theme.of(context).iconTheme.color,
-          ),
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(),
+        Image.asset(
+          "assets/icons/ic_more_horiz${isDark ? "" : "_light"}.png",
+          height: 30,
+          width: 30,
         ),
       ],
     );
@@ -61,13 +58,16 @@ class ComplexTableCard extends StatelessWidget {
   }
 
   Widget _buildDesktopTable(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Expanded(
       child: SizedBox(
         child: SingleChildScrollView(
           child: Column(
             children: [
               _buildTableHeader(context),
-              const SizedBox(height: 16),
+              const SizedBox(height: 4),
+              Divider(color: isDark ? AppColors.darkBorder : Color(0xffE9EDF7)),
+              const SizedBox(height: 4),
               ..._tableData.map((data) => _buildTableRow(context, data)),
             ],
           ),

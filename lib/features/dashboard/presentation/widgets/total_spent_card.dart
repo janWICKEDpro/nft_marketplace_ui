@@ -23,7 +23,7 @@ class TotalSpentCard extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
                 decoration: BoxDecoration(
-                  color: AppColors.darkBorder,
+                  color: isDark ? AppColors.darkBorder : AppColors.lightbg,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Row(
@@ -37,7 +37,6 @@ class TotalSpentCard extends StatelessWidget {
                     Text(
                       "This month",
                       style: TextStyle(
-                        color: Colors.white,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -46,7 +45,11 @@ class TotalSpentCard extends StatelessWidget {
                 ),
               ),
               Spacer(),
-              Image.asset("assets/icons/ic_btn_tab.png", height: 30, width: 30),
+              Image.asset(
+                "assets/icons/ic_btn_${isDark ? "tab" : "light"}.png",
+                height: 30,
+                width: 30,
+              ),
             ],
           ),
           Row(

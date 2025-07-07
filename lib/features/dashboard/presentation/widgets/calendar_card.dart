@@ -34,11 +34,12 @@ class _CalendarCardState extends State<CalendarCard> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(context.responsive(mobile: 20, desktop: 24)),
       decoration: BoxDecoration(
-        color: const Color(0xff1B2559),
+        color: isDark ? const Color(0xff1B2559) : Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -64,38 +65,59 @@ class _CalendarCardState extends State<CalendarCard> {
           context,
           months[selectedMonth - 1],
           () => _showMonthPicker(context),
+          true,
         ),
         const SizedBox(width: 32),
         _buildDropdown(
           context,
           selectedYear.toString(),
           () => _showYearPicker(context),
+          false,
         ),
       ],
     );
   }
 
-  Widget _buildDropdown(BuildContext context, String text, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: context.responsive(mobile: 18, desktop: 20),
-              fontWeight: FontWeight.w600,
+  Widget _buildDropdown(
+    BuildContext context,
+    String text,
+    VoidCallback onTap,
+    bool selected,
+  ) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      decoration: BoxDecoration(
+        color:
+            selected
+                ? isDark
+                    ? AppColors.darkBorder
+                    : AppColors.lightbg
+                : Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              text,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: selected ? AppColors.purple : null,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(width: 8),
-          Icon(
-            Icons.keyboard_arrow_down,
-            color: Colors.white.withOpacity(0.8),
-            size: 20,
-          ),
-        ],
+            const SizedBox(width: 8),
+            Icon(
+              Icons.keyboard_arrow_down,
+              color:
+                  isDark ? Colors.white.withOpacity(0.8) : AppColors.darkBorder,
+              size: 20,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -108,11 +130,9 @@ class _CalendarCardState extends State<CalendarCard> {
               child: Center(
                 child: Text(
                   day,
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: context.responsive(mobile: 14, desktop: 15),
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
                 ),
               ),
             );
@@ -205,7 +225,7 @@ class _CalendarCardState extends State<CalendarCard> {
               style: TextStyle(
                 color:
                     isCurrentMonth
-                        ? (isSelected ? Colors.white : Colors.white)
+                        ? (isSelected ? Colors.white : null)
                         : Colors.white.withOpacity(0.4),
                 fontSize: context.responsive(mobile: 14, desktop: 15),
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,

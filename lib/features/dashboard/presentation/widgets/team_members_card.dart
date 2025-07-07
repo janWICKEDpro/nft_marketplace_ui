@@ -11,7 +11,7 @@ class TeamMembersCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(context.responsive(mobile: 20, desktop: 24)),
       decoration: BoxDecoration(
-        color: AppColors.darklight,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -26,18 +26,22 @@ class TeamMembersCard extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           'Team members',
-          style: TextStyle(
-            color: Colors.white,
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontSize: context.responsive(mobile: 18, desktop: 20),
             fontWeight: FontWeight.bold,
           ),
         ),
-        Image.asset("assets/icons/ic_more_btn.png", height: 36, width: 36),
+        Image.asset(
+          "assets/icons/ic_more_btn${isDark ? "" : "_light"}.png",
+          height: 36,
+          width: 36,
+        ),
       ],
     );
   }
@@ -80,11 +84,23 @@ class TeamMembersCard extends StatelessWidget {
   }
 
   Widget _buildDesktopMemberItem(BuildContext context, TeamMember member) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
-        color: AppColors.darkBorder,
+        color: isDark ? AppColors.darkBorder : Colors.white,
         borderRadius: BorderRadius.circular(8),
+        boxShadow:
+            isDark
+                ? []
+                : [
+                  BoxShadow(
+                    color: Color(0xff7090B0).withValues(alpha: 0.12),
+                    offset: Offset(4, 10),
+                    blurRadius: 1,
+                    spreadRadius: 2,
+                  ),
+                ],
       ),
       child: Row(
         children: [
@@ -175,7 +191,6 @@ class TeamMembersCard extends StatelessWidget {
         Text(
           member.name,
           style: TextStyle(
-            color: Colors.white,
             fontSize: context.responsive(mobile: 15, desktop: 16),
             fontWeight: FontWeight.w600,
           ),
@@ -186,7 +201,6 @@ class TeamMembersCard extends StatelessWidget {
         Text(
           member.role,
           style: TextStyle(
-            color: Colors.white.withOpacity(0.7),
             fontSize: context.responsive(mobile: 13, desktop: 14),
             fontWeight: FontWeight.w400,
           ),
@@ -198,13 +212,17 @@ class TeamMembersCard extends StatelessWidget {
   }
 
   Widget _buildMenuButton(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: 24,
       height: 24,
       alignment: Alignment.center,
       child: Icon(
         Icons.more_vert,
-        color: Colors.white.withOpacity(0.8),
+        color:
+            isDark
+                ? Colors.white.withOpacity(0.8)
+                : AppColors.darkTextSecondary,
         size: 20,
       ),
     );

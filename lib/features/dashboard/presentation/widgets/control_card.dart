@@ -19,7 +19,7 @@ class ControlCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset("assets/icons/ic_fingerprint.png", height: 85, width: 85),
+          Image.asset("assets/icons/ic_fingerprint${isDark ? "" : "_light"}.png", height: 85, width: 85),
           Text(
             "Control card security \nin-app with a tap",
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
@@ -40,7 +40,7 @@ class ControlCard extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.purple,
+                backgroundColor: isDark ? AppColors.purple : AppColors.darkPurple,
                 foregroundColor: Colors.white,
                 padding: EdgeInsets.symmetric(
                   horizontal: context.responsive(mobile: 20, desktop: 24),

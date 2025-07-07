@@ -14,7 +14,7 @@ class _DailyTrafficCardState extends State<DailyTrafficCard> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
